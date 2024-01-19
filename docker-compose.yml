@@ -1,0 +1,102 @@
+version: '3.8'
+services:
+  redis-auth:
+    image: redis:latest
+    container_name: redis-auth
+    ports:
+      - '6380:6379'
+    expose:
+      - '6380'
+    networks:
+      - course_compass
+  mysql-auth:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: course_compass_auth
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql-auth-data:/var/lib/mysql
+    networks:
+      - course_compass
+    container_name: mysql-auth
+  mysql-academics:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: course_compass_academics
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql-academics-data:/var/lib/mysql
+    networks:
+      - course_compass
+
+#  mongo-communication:
+#    image: mongo:latest
+#    ports:
+#      - "27017:27017"
+#    volumes:
+#      - mongo-communication-data:/data/db
+#    networks:
+#      - course_compass
+
+#  mongo-payment:
+#    image: mongo:latest
+#    ports:
+#      - "27018:27017"
+#    volumes:
+#      - mongo-payment-data:/data/db
+#    networks:
+#      - course_compass
+
+  academics-microservice:
+    build:
+      context: ./academics
+    restart: unless-stopped
+    ports:
+      - "9001:9001"
+    networks:
+      - course_compass
+    container_name: academics-microservice
+
+  auth-microservice:
+    build:
+      context: ./auth
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+    networks:
+      - course_compass
+    container_name: auth-microservice
+
+#  communication-microservice:
+#    build:
+#      context: ./communication
+#    restart: unless-stopped
+#    ports:
+#      - "8001:8001"
+#    networks:
+#      - course_compass
+
+#  payment-microservice:
+#    build:
+#      context: ./payment
+#    restart: unless-stopped
+#    ports:
+#      - "8002:8002"
+#    networks:
+#      - course_compass
+#    depends_on:
+#      - mongo-payment
+
+networks:
+  course_compass:
+    driver: bridge
+
+volumes:
+  mysql-auth-data: {}
+  mysql-academics-data: {}
+#  mongo-communication-data: {}
+#  mongo-payment-data: {}

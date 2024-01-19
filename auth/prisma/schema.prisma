@@ -1,0 +1,114 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum AccountStatus {
+  trial
+  active
+  onHold
+  suspended
+  blocked
+}
+
+enum AcademicsType {
+  semester
+  year
+}
+
+model Role {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  user      User[]
+
+  @@map("roles")
+}
+
+model User {
+  id                  Int           @id @default(autoincrement())
+  roleId              Int?
+  firstName           String
+  middleName          String?
+  lastName            String
+  password            String?
+  onBoardingCompleted Boolean       @default(false)
+  signInByGoogle      Boolean       @default(false)
+  accountStatus       AccountStatus @default(trial)
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @default(now())
+  role                Role?         @relation(fields: [roleId], references: [id], onDelete: SetNull)
+  userEmail           UserEmail?
+  userMobile          UserMobile?
+  UserDetail          UserDetail[]
+
+  @@map("users")
+}
+
+model UserEmail {
+  id               Int       @id @default(autoincrement())
+  userId           Int       @unique
+  email            String    @unique
+  verificationCode String?
+  verifiedAt       DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @default(now())
+  User             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_emails")
+}
+
+model UserMobile {
+  id               Int       @id @default(autoincrement())
+  userId           Int       @unique
+  mobile           String    @unique
+  verificationCode String?
+  verifiedAt       DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @default(now())
+  User             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_mobiles")
+}
+
+model StudyLevel {
+  id         Int          @id @default(autoincrement())
+  name       String       @unique
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @default(now())
+  UserDetail UserDetail[]
+
+  @@map("study_levels")
+}
+
+model Institution {
+  id         Int          @id @default(autoincrement())
+  name       String       @unique
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @default(now())
+  UserDetail UserDetail[]
+
+  @@map("institutions")
+}
+
+model UserDetail {
+  id            Int           @id @default(autoincrement())
+  userId        Int
+  studyLevelId  Int?
+  institutionId Int?
+  academicsType AcademicsType
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @default(now())
+  User          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  StudyLevel    StudyLevel?   @relation(fields: [studyLevelId], references: [id], onDelete: SetNull)
+  Institution   Institution?  @relation(fields: [institutionId], references: [id], onDelete: SetNull)
+
+  @@map("user_details")
+}
+

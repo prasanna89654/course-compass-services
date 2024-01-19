@@ -1,0 +1,384 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input AddMobileNumberInput {
+  """User's mobile number"""
+  mobile: String!
+
+  """User's Id"""
+  userId: Int!
+}
+
+input CreateInstitutionInput {
+  """Name of institution."""
+  name: String!
+}
+
+input CreateRoleInput {
+  """Name of role."""
+  name: String!
+}
+
+input CreateStudyLevelInput {
+  """Name of study level."""
+  name: String!
+}
+
+input CreateUserDetails {
+  """Student Academic Type"""
+  academicsType: String!
+
+  """Institution Id"""
+  institutionId: Int
+
+  """Study Level Id"""
+  studyLevelId: Int
+
+  """User Id"""
+  userId: Int!
+}
+
+input CreateUserInput {
+  """User's email address"""
+  email: String!
+
+  """User's first name"""
+  firstName: String!
+
+  """User's last name"""
+  lastName: String!
+
+  """User's middle name"""
+  middleName: String
+
+  """User's account password"""
+  password: String
+
+  """Role Id"""
+  roleId: Int!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Institution {
+  """Institution created date"""
+  createdAt: DateTime!
+
+  """Institution Id"""
+  id: Int!
+
+  """Institution Name"""
+  name: String!
+
+  """Institution updated date"""
+  updatedAt: DateTime!
+}
+
+type InstitutionResponse {
+  """List of institutions"""
+  institutions: [Institution!]!
+
+  """Total institutions count"""
+  totalCount: Int!
+}
+
+input LoginUserInput {
+  """User's account password"""
+  password: String!
+
+  """Username"""
+  username: String!
+}
+
+type LoginUserResponse {
+  """User's access Token"""
+  accessToken: String!
+
+  """User's access Token expiry in days"""
+  expiresInDays: Int!
+
+  """User's onboarding status"""
+  onBoardingCompleted: Boolean!
+
+  """User's role name"""
+  role: String!
+
+  """User's google sign in status"""
+  signInByGoogle: Boolean!
+
+  """User's Id"""
+  userId: Int!
+}
+
+type Mutation {
+  addMobileNumber(addMobileNumberInput: AddMobileNumberInput!): UserMobile!
+  createInstitution(createInstitutionInput: CreateInstitutionInput!): Institution!
+  createRole(createRoleInput: CreateRoleInput!): Role!
+  createStudyLevel(createStudyLevelInput: CreateStudyLevelInput!): StudyLevel!
+  createUser(createUserInput: CreateUserInput!): User!
+  createUserDetails(createUserDetails: CreateUserDetails!): UserDetail!
+  googleLogin(credentialToken: String!): LoginUserResponse!
+  login(loginUserInput: LoginUserInput!): LoginUserResponse!
+  removeInstitution(id: Int!): Institution!
+  removeRole(id: Int!): Role!
+  removeStudyLevel(id: Int!): StudyLevel!
+  removeUser(id: Int!): User!
+  updateInstitution(updateInstitutionInput: UpdateInstitutionInput!): Institution!
+  updateMobileNumber(updateMobileNumberInput: UpdateMobileNumberInput!): UserMobile!
+  updateRole(updateRoleInput: UpdateRoleInput!): Role!
+  updateStudyLevel(updateStudyLevelInput: UpdateStudyLevelInput!): StudyLevel!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  verifyEmail(verifyEmailInput: VerifyEmailInput!): UserEmail!
+  verifyMobileNumber(verifyMobileNumberInput: VerifyMobileNumberInput!): UserMobile!
+}
+
+type Query {
+  getRequestUser: RequestUserResponse!
+  institution(id: Int!): Institution!
+  institutions(orderBy: String, search: String, skip: Float, sortOrder: String, take: Float): InstitutionResponse!
+  role(id: Int!): Role!
+  roles(orderBy: String, skip: Float, sortOrder: String, take: Float): RoleResponse!
+  studyLevel(id: Int!): StudyLevel!
+  studyLevels(orderBy: String, search: String, skip: Float, sortOrder: String, take: Float): StudyLevelResponse!
+  user(id: Int!): User!
+  users(orderBy: String, search: String, skip: Float, sortOrder: String, take: Float): UserResponse!
+}
+
+type RequestUserResponse {
+  """User's role name"""
+  role: String!
+
+  """User's Id"""
+  userId: Int!
+}
+
+type Role {
+  """Role created date"""
+  createdAt: DateTime!
+
+  """Role Id"""
+  id: Int!
+
+  """Role Name"""
+  name: String!
+
+  """Role updated date"""
+  updatedAt: DateTime!
+}
+
+type RoleResponse {
+  """List of roles"""
+  roles: [Role!]!
+
+  """Total Roles Count"""
+  totalCount: Int!
+}
+
+type StudyLevel {
+  """Study level created date"""
+  createdAt: DateTime!
+
+  """Study level Id"""
+  id: Int!
+
+  """Study level Name"""
+  name: String!
+
+  """Study level updated date"""
+  updatedAt: DateTime!
+}
+
+type StudyLevelResponse {
+  """List of study levels"""
+  studyLevels: [StudyLevel!]!
+
+  """Total study levels count"""
+  totalCount: Int!
+}
+
+input UpdateInstitutionInput {
+  id: Int!
+
+  """Name of institution."""
+  name: String
+}
+
+input UpdateMobileNumberInput {
+  """User's mobile number"""
+  mobile: String
+
+  """User's Id"""
+  userId: Int
+}
+
+input UpdateRoleInput {
+  """Id of role to update"""
+  id: Int!
+
+  """Name of role."""
+  name: String
+}
+
+input UpdateStudyLevelInput {
+  """Study Level Id."""
+  id: Int!
+
+  """Name of study level."""
+  name: String
+}
+
+input UpdateUserInput {
+  """User's email address"""
+  email: String
+
+  """User's first name"""
+  firstName: String
+  id: Int!
+
+  """User's last name"""
+  lastName: String
+
+  """User's middle name"""
+  middleName: String
+
+  """User's account password"""
+  password: String
+
+  """Role Id"""
+  roleId: Int
+}
+
+type User {
+  """Flag to check user's account status"""
+  accountStatus: String!
+
+  """User created date"""
+  createdAt: DateTime!
+
+  """User's first name"""
+  firstName: String!
+
+  """User Id"""
+  id: Int!
+
+  """User's last name"""
+  lastName: String!
+
+  """User's middle name"""
+  middleName: String
+
+  """Flag to check user's onboarding status"""
+  onBoardingCompleted: Boolean!
+
+  """User's role"""
+  role: Role!
+
+  """Flag to check user's aignin status"""
+  signInByGoogle: Boolean!
+
+  """User updated date"""
+  updatedAt: DateTime!
+
+  """User's email detail"""
+  userEmail: UserEmail!
+
+  """User's mobile number detail"""
+  userMobile: UserMobile
+}
+
+type UserDetail {
+  """Academics Type"""
+  academicsType: String!
+
+  """Created Date"""
+  createdAt: DateTime!
+
+  """Id"""
+  id: Int!
+
+  """Institution Id"""
+  institutionId: Int!
+
+  """Study Level Id"""
+  studyLevelId: Int!
+
+  """Updated Date"""
+  updatedAt: DateTime!
+
+  """User Id"""
+  userId: Int!
+}
+
+type UserEmail {
+  """User's email created date"""
+  createdAt: DateTime!
+
+  """User's email address"""
+  email: String!
+
+  """User's email Id"""
+  id: Int!
+
+  """User's email updated date"""
+  updatedAt: DateTime!
+
+  """User's Id"""
+  userId: Int!
+
+  """User's email verification code name"""
+  verificationCode: String
+
+  """User's email verified at date"""
+  verifiedAt: DateTime
+}
+
+type UserMobile {
+  """User's mobile number created date"""
+  createdAt: DateTime!
+
+  """User's mobile number Id"""
+  id: Int!
+
+  """User's mobie number"""
+  mobile: String!
+
+  """User's mobile number updated date"""
+  updatedAt: DateTime!
+
+  """User's Id"""
+  userId: Int!
+
+  """User's mobile number verification code name"""
+  verificationCode: String
+
+  """User's mobile number verified at date"""
+  verifiedAt: DateTime
+}
+
+type UserResponse {
+  """Total User count"""
+  totalCount: Int!
+
+  """List of institutions"""
+  users: [User!]!
+}
+
+input VerifyEmailInput {
+  """User's email address"""
+  email: String!
+
+  """Verification code sent to email"""
+  verificationCode: String!
+}
+
+input VerifyMobileNumberInput {
+  """User's mobile number"""
+  mobile: String!
+
+  """Verification code sent to mobile number"""
+  verificationCode: String!
+}

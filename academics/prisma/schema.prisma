@@ -1,0 +1,135 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Semester {
+  first
+  second
+  third
+  fourth
+  fifth
+  sixth
+  seventh
+  eighth
+  ninth
+  tenth
+}
+
+enum Year {
+  first
+  second
+  third
+  fourth
+  fifth
+}
+
+enum Priority {
+  low
+  medium
+  high
+}
+
+enum Status {
+  todo
+  in_progress
+  review
+  complete
+}
+
+model Course {
+  id          Int          @id @default(autoincrement())
+  userId      Int
+  name        String       @unique
+  semester    Semester?
+  year        Year?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  assignments Assignment[]
+
+  @@map("courses")
+}
+
+model Assignment {
+  id                Int                @id @default(autoincrement())
+  userId            Int
+  courseId          Int
+  name              String             @unique
+  description       String?
+  link              String?
+  file_path         String?
+  startDate         DateTime
+  endDate           DateTime
+  priority          Priority
+  status            Status
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  course            Course             @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  assignmentRemarks AssignmentRemark[]
+  subAssignments    SubAssignment[]
+
+  @@map("assignments")
+}
+
+model AssignmentRemark {
+  id           Int        @id @default(autoincrement())
+  userId       Int
+  assignmentId Int
+  status       Status
+  remark       String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  assignment   Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+
+  @@map("assignment_remarks")
+}
+
+model SubAssignment {
+  id                   Int                   @id @default(autoincrement())
+  userId               Int
+  assignmentId         Int
+  name                 String
+  description          String?
+  startDate            DateTime
+  endDate              DateTime
+  status               Status
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  assignment           Assignment            @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  subAssignmentRemarks SubAssignmentRemark[]
+
+  @@map("sub_assignments")
+}
+
+model SubAssignmentRemark {
+  id              Int           @id @default(autoincrement())
+  userId          Int
+  subAssignmentId Int
+  status          Status
+  remark          String
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  subAssignment   SubAssignment @relation(fields: [subAssignmentId], references: [id], onDelete: Cascade)
+
+  @@map("sub_assignment_remarks")
+}
+
+model Note {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  name        String
+  description String
+  link        String?
+  isShareable Boolean
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("notes")
+}

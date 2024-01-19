@@ -1,0 +1,537 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Assignment {
+  """Assignment Remarks"""
+  assignmentRemarks: [AssignmentRemark!]!
+
+  """Course"""
+  course: Course!
+
+  """Course Id"""
+  courseId: Int!
+
+  """Created At"""
+  createdAt: String!
+
+  """Assignment Description"""
+  description: String
+
+  """Assignment End Date"""
+  endDate: String!
+
+  """Assignment File Path"""
+  file_path: String
+
+  """Assignment Id"""
+  id: Int!
+
+  """Assignment Link"""
+  link: String
+
+  """Assignment name"""
+  name: String!
+
+  """Assignment Priority"""
+  priority: String!
+
+  """Assignment Start Date"""
+  startDate: String!
+
+  """Assignment Status"""
+  status: String!
+
+  """Sub Assignments"""
+  subAssignments: [SubAssignment!]!
+
+  """Updated At"""
+  updatedAt: String!
+
+  """User Id"""
+  userId: Int!
+}
+
+enum AssignmentPriority {
+  high
+  low
+  medium
+}
+
+type AssignmentRemark {
+  """Assignment"""
+  assignment: Assignment!
+
+  """Assignment Id"""
+  assignmentId: Int!
+
+  """Created At"""
+  createdAt: String!
+
+  """Assignment Remark Id"""
+  id: Int!
+
+  """Assignment Remark"""
+  remark: String!
+
+  """Assignment Status"""
+  status: String!
+
+  """Updated At"""
+  updatedAt: String!
+
+  """User Id"""
+  userId: Int!
+}
+
+type AssignmentRemarkResponse {
+  """List of Assignment Remarks"""
+  assignmentRemarks: [AssignmentRemark!]!
+
+  """Total Assignment Remark count"""
+  totalCount: Int!
+}
+
+type AssignmentResponse {
+  """List of assignments"""
+  assignments: [Assignment!]!
+
+  """Total Assignment count"""
+  totalCount: Int!
+}
+
+enum AssignmentStatus {
+  complete
+  in_progress
+  review
+  todo
+}
+
+type Course {
+  """Assignments"""
+  assignments: [Assignment!]!
+
+  """Created At"""
+  createdAt: String!
+
+  """Course Id"""
+  id: Int!
+
+  """Course name"""
+  name: String!
+
+  """Semester"""
+  semester: String
+
+  """Updated At"""
+  updatedAt: String!
+
+  """User Id"""
+  userId: Int!
+
+  """Year"""
+  year: String
+}
+
+type CourseResponse {
+  """List of courses"""
+  courses: [Course!]!
+
+  """Total course count"""
+  totalCount: Int!
+}
+
+input CreateAssignmentInput {
+  """Course Id"""
+  courseId: Int!
+
+  """Assignment Description"""
+  description: String
+
+  """Assignment End Date"""
+  endDate: String!
+
+  """Assignment File Path"""
+  file_path: String
+
+  """Assignment Link"""
+  link: String
+
+  """Assignment name"""
+  name: String!
+
+  """Assignment Priority"""
+  priority: AssignmentPriority!
+
+  """Assignment Start Date"""
+  startDate: String!
+
+  """Assignment Status"""
+  status: AssignmentStatus!
+}
+
+input CreateAssignmentRemarkInput {
+  """Assignment Id"""
+  assignmentId: Int!
+
+  """Assignment Remark"""
+  remark: String!
+
+  """Assignment Status"""
+  status: RemarkStatus!
+}
+
+input CreateCourseInput {
+  """Course name"""
+  name: String!
+
+  """Semester"""
+  semester: Semester
+
+  """Year"""
+  year: Year
+}
+
+input CreateNoteInput {
+  """Note Description"""
+  description: String!
+
+  """Note Shareable"""
+  isShareable: Boolean!
+
+  """Note Link"""
+  link: String
+
+  """Note name"""
+  name: String!
+}
+
+input CreateSubAssignmentInput {
+  """Assignment Id"""
+  assignmentId: Int!
+
+  """SubAssignment Description"""
+  description: String
+
+  """SubAssignment End Date"""
+  endDate: String!
+
+  """SubAssignment name"""
+  name: String!
+
+  """SubAssignment Start Date"""
+  startDate: String!
+
+  """SubAssignment Status"""
+  status: SubAssignmentStatus!
+}
+
+input CreateSubAssignmentRemarkInput {
+  """SubAssignment Remark"""
+  remark: String!
+
+  """SubAssignment Status"""
+  status: SubAssignmentRemarkStatus!
+
+  """SubAssignment Id"""
+  subAssignmentId: Int!
+}
+
+type Mutation {
+  createAssignment(createAssignmentInput: CreateAssignmentInput!): Assignment!
+  createAssignmentRemark(createAssignmentRemarkInput: CreateAssignmentRemarkInput!): AssignmentRemark!
+  createCourse(createCourseInput: CreateCourseInput!): Course!
+  createNote(createNoteInput: CreateNoteInput!): Note!
+  createSubAssignment(createSubAssignmentInput: CreateSubAssignmentInput!): SubAssignment!
+  createSubAssignmentRemark(createSubAssignmentRemarkInput: CreateSubAssignmentRemarkInput!): SubAssignmentRemark!
+  removeAssignment(id: Int!): Assignment!
+  removeAssignmentRemark(id: Int!): AssignmentRemark!
+  removeCourse(id: Int!): Course!
+  removeNote(id: Int!): Note!
+  removeSubAssignment(id: Int!): SubAssignment!
+  removeSubAssignmentRemark(id: Int!): SubAssignmentRemark!
+  updateAssignment(updateAssignmentInput: UpdateAssignmentInput!): Assignment!
+  updateAssignmentRemark(updateAssignmentRemarkInput: UpdateAssignmentRemarkInput!): AssignmentRemark!
+  updateCourse(updateCourseInput: UpdateCourseInput!): Course!
+  updateNote(updateNoteInput: UpdateNoteInput!): Note!
+  updateSubAssignment(updateSubAssignmentInput: UpdateSubAssignmentInput!): SubAssignment!
+  updateSubAssignmentRemark(updateSubAssignmentRemarkInput: UpdateSubAssignmentRemarkInput!): SubAssignmentRemark!
+}
+
+type Note {
+  """Created At"""
+  createdAt: String!
+
+  """Note Description"""
+  description: String!
+
+  """Note Id"""
+  id: Int!
+
+  """Note isShareable"""
+  isShareable: Boolean!
+
+  """Note Link"""
+  link: String
+
+  """Note name"""
+  name: String!
+
+  """Updated At"""
+  updatedAt: String!
+
+  """User Id"""
+  userId: Int!
+}
+
+type NoteResponse {
+  """List of Notes"""
+  notes: [Note!]!
+
+  """Total Note count"""
+  totalCount: Int!
+}
+
+type Query {
+  assignment(id: Int!): Assignment!
+  assignmentRemark(id: Int!): AssignmentRemark!
+  assignments(orderBy: String, search: String, skip: Float, sortOrder: String, take: Float): AssignmentResponse!
+  course(id: Int!): Course!
+  courses(orderBy: String, search: String, skip: Float, sortOrder: String, take: Float): CourseResponse!
+  note(id: Int!): Note!
+  notes(orderBy: String, search: String, skip: Float, sortOrder: String, take: Float): NoteResponse!
+  subAssignment(id: Int!): SubAssignment!
+  subAssignmentRemark(id: Int!): SubAssignmentRemark!
+  subAssignmentRemarks(orderBy: String, search: String, skip: Float, sortOrder: String, take: Float): SubAssignmentRemarkResponse!
+  subAssignments(orderBy: String, search: String, skip: Float, sortOrder: String, take: Float): SubAssignmentResponse!
+}
+
+enum RemarkStatus {
+  complete
+  in_progress
+  review
+  todo
+}
+
+enum Semester {
+  eighth
+  fifth
+  first
+  fourth
+  ninth
+  second
+  seventh
+  sixth
+  tenth
+  third
+}
+
+type SubAssignment {
+  """Assignment Id"""
+  assignmentId: Int!
+
+  """Created At"""
+  createdAt: String!
+
+  """Sub Assignment Description"""
+  description: String
+
+  """Sub Assignment End Date"""
+  endDate: String!
+
+  """Sub Assignment Id"""
+  id: Int!
+
+  """Sub Assignment name"""
+  name: String!
+
+  """Sub Assignment Start Date"""
+  startDate: String!
+
+  """Sub Assignment Status"""
+  status: String!
+
+  """Sub Assignment Remarks"""
+  subAssignmentRemarks: [SubAssignmentRemark!]!
+
+  """Updated At"""
+  updatedAt: String!
+
+  """User Id"""
+  userId: Int!
+}
+
+type SubAssignmentRemark {
+  """Created At"""
+  createdAt: String!
+
+  """Sub Assignment Remark Id"""
+  id: Int!
+
+  """Sub Assignment Remark"""
+  remark: String!
+
+  """Sub Assignment Status"""
+  status: String!
+
+  """Sub Assignment Id"""
+  subAssignmentId: Int!
+
+  """Updated At"""
+  updatedAt: String!
+
+  """User Id"""
+  userId: Int!
+}
+
+type SubAssignmentRemarkResponse {
+  """List of Sub Assignment Remarks"""
+  subAssignmentRemarks: [SubAssignmentRemark!]!
+
+  """Total Sub Assignment Remark count"""
+  totalCount: Int!
+}
+
+enum SubAssignmentRemarkStatus {
+  complete
+  in_progress
+  review
+  todo
+}
+
+type SubAssignmentResponse {
+  """List of SubAssignments"""
+  subAssignments: [SubAssignment!]!
+
+  """Total SubAssignment count"""
+  totalCount: Int!
+}
+
+enum SubAssignmentStatus {
+  complete
+  in_progress
+  review
+  todo
+}
+
+input UpdateAssignmentInput {
+  """Course Id"""
+  courseId: Int
+
+  """Assignment Description"""
+  description: String
+
+  """Assignment End Date"""
+  endDate: String
+
+  """Assignment File Path"""
+  file_path: String
+
+  """Assignment Id"""
+  id: Int!
+
+  """Assignment Link"""
+  link: String
+
+  """Assignment name"""
+  name: String
+
+  """Assignment Priority"""
+  priority: AssignmentPriority
+
+  """Assignment Start Date"""
+  startDate: String
+
+  """Assignment Status"""
+  status: AssignmentStatus
+}
+
+input UpdateAssignmentRemarkInput {
+  """Assignment Id"""
+  assignmentId: Int
+
+  """AssignmentRemark Id"""
+  id: Int!
+
+  """Assignment Remark"""
+  remark: String
+
+  """Assignment Status"""
+  status: RemarkStatus
+}
+
+input UpdateCourseInput {
+  """Course Id"""
+  id: Int!
+
+  """Course name"""
+  name: String
+
+  """Semester"""
+  semester: Semester
+
+  """Year"""
+  year: Year
+}
+
+input UpdateNoteInput {
+  """Note Description"""
+  description: String
+
+  """Note Id"""
+  id: Int!
+
+  """Note Shareable"""
+  isShareable: Boolean
+
+  """Note Link"""
+  link: String
+
+  """Note name"""
+  name: String
+}
+
+input UpdateSubAssignmentInput {
+  """Assignment Id"""
+  assignmentId: Int
+
+  """SubAssignment Description"""
+  description: String
+
+  """SubAssignment End Date"""
+  endDate: String
+
+  """SubAssignment Id"""
+  id: Int!
+
+  """SubAssignment name"""
+  name: String
+
+  """SubAssignment Start Date"""
+  startDate: String
+
+  """SubAssignment Status"""
+  status: SubAssignmentStatus
+}
+
+input UpdateSubAssignmentRemarkInput {
+  """SubAssignmentRemark Id"""
+  id: Int!
+
+  """SubAssignment Remark"""
+  remark: String
+
+  """SubAssignment Status"""
+  status: SubAssignmentRemarkStatus
+
+  """SubAssignment Id"""
+  subAssignmentId: Int
+}
+
+enum Year {
+  fifth
+  first
+  fourth
+  second
+  third
+}
